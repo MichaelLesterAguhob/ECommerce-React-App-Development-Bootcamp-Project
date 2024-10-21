@@ -18,8 +18,7 @@ export default function AppNavbar() {
 				    <Nav className="ms-auto" >
 				        <Nav.Link as={NavLink} to="/" exact="true">Product Catalog</Nav.Link>
 				        {
-                            (user.id !== null) 
-                            ? 
+                            user.id ? 
 								<>
 									<Nav.Link as={Link} to="/logout">Logout</Nav.Link>
 								</>

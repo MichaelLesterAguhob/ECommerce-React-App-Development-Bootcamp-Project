@@ -16,6 +16,7 @@ export default function Register() {
 	const [confirmPassword, setConfirmPassword] = useState("");
 
     const [isActive, setIsActive] = useState(false);
+    const [reDirect, setRedirect] = useState(false);
 
 	function clearInputs() {
         setFirstName('');
@@ -45,15 +46,15 @@ export default function Register() {
 		.then(res => res.json())
 		.then(data => {
             if(data.message === "User registered successfully"){
-                setEmail('');
-                setPassword('');
-                setConfirmPassword('');
-                //  <Navigate to='/login'/>
+                clearInputs();
+                
                 Swal.fire({
                     title: "Success!",
                     icon: "success",
                     text: "Registered Successfully"
                 });
+
+                setRedirect(true);
             } 
             else if(data.message === "Email already exists."){
                 Swal.fire({
@@ -84,7 +85,7 @@ export default function Register() {
                 });
             } 
             else {
-                console.log(data);
+                clearInputs();
                 Swal.fire({
                     title: "Something went wrong.",
                     icon: "error",
@@ -109,70 +110,72 @@ export default function Register() {
 		(user.id !== null) ?
 		    <Navigate to="/" />
 		:
-			<Form onSubmit={(e) => registerUser(e)}>
-			<h1 className="my-5 text-center">Register</h1>
+            (reDirect) ?
+                <Navigate to="/login" />
+            :
+                <Form onSubmit={(e) => registerUser(e)}>
+                <h1 className="my-5 text-center">Register</h1>
 
-                <Form.Group>
-					<Form.Label>First Name:</Form.Label>
-					<Form.Control 
-					type="text"
-					placeholder="Enter First Name" 
-					required 
-					value={firstName} 
-					onChange={e => {setFirstName(e.target.value)}}/>
-				</Form.Group>
-                <Form.Group>
-					<Form.Label>Last Name:</Form.Label>
-					<Form.Control 
-					type="text"
-					placeholder="Enter Last Name" 
-					required 
-					value={lastName} 
-					onChange={e => {setlastName(e.target.value)}}/>
-				</Form.Group>
-				<Form.Group>
-					<Form.Label>Email:</Form.Label>
-					<Form.Control 
-					type="email"
-					placeholder="Enter Email" 
-					required 
-					value={email} 
-					onChange={e => {setEmail(e.target.value)}}/>
-				</Form.Group>
-				<Form.Group>
-					<Form.Label>Mobile Number:</Form.Label>
-					<Form.Control 
-					type="text"
-					placeholder="Enter Mobile Number" 
-					required 
-					value={mobileNo} 
-					onChange={e => {setmobileNo(e.target.value)}}/>
-				</Form.Group>
-				<Form.Group>
-					<Form.Label>Password:</Form.Label>
-					<Form.Control 
-					type="password" 
-					placeholder="Enter Password" 
-					required 
-					value={password} 
-					onChange={e => {setPassword(e.target.value)}}/>
-				</Form.Group>
-				<Form.Group>
-					<Form.Label>Confirm Password:</Form.Label>
-					<Form.Control 
-					type="password" 
-					placeholder="Confirm Password" 
-					required 
-					value={confirmPassword} 
-					onChange={e => {setConfirmPassword(e.target.value)}}/>
-				</Form.Group>
-				{
-					isActive ? 
-                    <Button variant="primary" type="submit">Submit</Button>
-					: 
-                    <Button variant="primary" disabled>Submit</Button>
-				}
-			</Form>
-		
+                    <Form.Group>
+                        <Form.Label>First Name:</Form.Label>
+                        <Form.Control 
+                        type="text"
+                        placeholder="Enter First Name" 
+                        required 
+                        value={firstName} 
+                        onChange={e => {setFirstName(e.target.value)}}/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Last Name:</Form.Label>
+                        <Form.Control 
+                        type="text"
+                        placeholder="Enter Last Name" 
+                        required 
+                        value={lastName} 
+                        onChange={e => {setlastName(e.target.value)}}/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Email:</Form.Label>
+                        <Form.Control 
+                        type="email"
+                        placeholder="Enter Email" 
+                        required 
+                        value={email} 
+                        onChange={e => {setEmail(e.target.value)}}/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Mobile Number:</Form.Label>
+                        <Form.Control 
+                        type="text"
+                        placeholder="Enter Mobile Number" 
+                        required 
+                        value={mobileNo} 
+                        onChange={e => {setmobileNo(e.target.value)}}/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Password:</Form.Label>
+                        <Form.Control 
+                        type="password" 
+                        placeholder="Enter Password" 
+                        required 
+                        value={password} 
+                        onChange={e => {setPassword(e.target.value)}}/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Confirm Password:</Form.Label>
+                        <Form.Control 
+                        type="password" 
+                        placeholder="Confirm Password" 
+                        required 
+                        value={confirmPassword} 
+                        onChange={e => {setConfirmPassword(e.target.value)}}/>
+                    </Form.Group>
+                    {
+                        isActive ? 
+                        <Button variant="primary" type="submit">Submit</Button>
+                        : 
+                        <Button variant="primary" disabled>Submit</Button>
+                    }
+                </Form>
 		)
 }

@@ -7,37 +7,43 @@ import {UserProvider} from './UserContext';
 import NavBar from './components/NavBar';
 import Register from './pages/Register';
 import Login from './pages/Login';
-
+import Logout from './pages/Logout';
+import ProductCatalog from './pages/ProductCatalog'
 
 function App() {
     const [user, setUser] = useState({
-        id: null
+        id: null,
+        isAdmin: null
     })
 
-    const unsetUser = () => {
+    function unsetUser() {
         localStorage.clear();
     }
 
     useEffect(() => {
-            fetch(``, {
+        if(localStorage.getItem("token") !== null)
+        {
+            fetch(`http://localhost:4008/b8/users/details`, {
             headers: {
-                Authorizations: `Bearer ${ localStorage.getItem('token') }`
+                Authorization: `Bearer ${ localStorage.getItem('token') }`
             }
             })
             .then(res => res.json())
             .then(data => {
-                if (typeof data.user !== "undefined") {
-                    setUser({
+                setUser({
                     id: data.user._id,
                     isAdmin: data.user.isAdmin
-                    });
-                } else {
-                    setUser({
-                    id: null
-                    });
-                }
+                });
             })
-        }, []);
+        } else { 
+            console.log("else executed")
+            setUser({
+                id: null,
+                isAdmin: null
+            })
+        }
+            
+    }, []);
 
   return (
     <UserProvider value={{user, setUser, unsetUser}}>
@@ -45,9 +51,10 @@ function App() {
         <NavBar />
         <Container>
           <Routes>
-            {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/" element={<ProductCatalog />} />
             <Route path="/register" element={<Register />} />
              <Route path="/login" element={<Login />} />
+             <Route path="/logout" element={<Logout />} />
             {/* <Route path="/logout" element={<Logout />} /> */}
             {/* <Route path="*" element={<Error />} /> */}
           </Routes>

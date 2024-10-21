@@ -10,14 +10,11 @@ export default function Login() {
 
 	const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const [isActive, setIsActive] = useState(true);
-
 
     function authenticate(e) {
         e.preventDefault();
-
-		fetch('http://localhost:4000/users/login',{
+		fetch('http://localhost:4008/b8/users/login',{
 		method: 'POST',
 		headers: {
 			"Content-Type": "application/json"
@@ -31,17 +28,31 @@ export default function Login() {
 	.then(data => {
 		
 		if(data.access){
-			localStorage.getItem('token', data.access);
+			localStorage.setItem('token', data.access);
 			retrieveUserDetails(data.access);
 			Swal.fire({
         	    title: "Login Successful",
         	    icon: "success",
-        	    text: "Welcome to Zuitt!"
+        	    text: "Welcome to Ecommerce! Site"
         	});
             <Navigate to="/" />
-	
-		} else {
-
+		} 
+        else if(data.message === "Invalid Email"){
+			Swal.fire({
+                title: "Invalid",
+                icon: "warning",
+                text: "Invalid Email Format!"
+            });
+		}
+        else if(data.message === "Email and password do not match"){
+			Swal.fire({
+                title: "Login Failed",
+                icon: "error",
+                text: "Email and password do not match!"
+            });
+		}
+        else {
+          
 			Swal.fire({
                 title: "Authentication failed",
                 icon: "error",
@@ -53,12 +64,11 @@ export default function Login() {
 	setEmail('');
 	setPassword('');
 
-
     }
 
 
     const retrieveUserDetails = (token) => {
-        fetch('http://localhost:4000/users/details', {
+        fetch('http://localhost:4008/b8/users/details', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -67,13 +77,12 @@ export default function Login() {
         .then(data => {
             setUser({
               id: data.user._id,
+              isAdmin: data.isAdmin
             });
         })
     };
 
     useEffect(() => {
-
-        // Validation to enable submit button when all fields are populated and both passwords match
         if(email !== '' && password !== ''){
             setIsActive(true);
         }else{
@@ -94,7 +103,7 @@ export default function Login() {
 	            <Form.Group controlId="userEmail">
 	                <Form.Label>Email address</Form.Label>
 	                <Form.Control 
-	                    type="text"
+	                    type="email"
 	                    placeholder="Enter email"
 	                    value={email}
             			onChange={(e) => setEmail(e.target.value)}
@@ -115,11 +124,11 @@ export default function Login() {
 
 	             { isActive ? 
 	                <Button variant="primary" type="submit" id="submitBtn">
-	                    Submit
+	                    Login
 	                </Button>
 	                : 
-	                <Button variant="danger" type="submit" id="submitBtn" disabled>
-	                    Submit
+	                <Button variant="secondary" type="submit" id="submitBtn" disabled>
+	                    Login
 	                </Button>
 	            }
 	        </Form>
