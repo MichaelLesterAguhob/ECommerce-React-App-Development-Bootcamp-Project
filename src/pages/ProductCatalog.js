@@ -1,22 +1,25 @@
-import { useContext, useEffect } from 'react';
-import { Button, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { useContext, useEffect, useId, useState } from 'react';
 import UserContext from '../UserContext';
-import {Navigate} from 'react-router-dom'
+import UserView from '../components/UserView';
 
 export default function ProductCatalog() {
-   
     const {user} = useContext(UserContext);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => { 
+        let URL = user.isAdmin ? 'http://localhost:4008/b8/products/all' : 'http://localhost:4008/b8/products/active'
+        fetch(URL, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data !== null) {
+                setProducts(data);
+            }
+        })
+    })
 
     return (
-        user.id === null ?
-        <Navigate to="/login"/>
-        :
-        <Row>
-            <Col className="mt-5 pt-5 text-center mx-auto">
-                <h1>Welcome to Ecommerce App</h1>
-                <Link className="btn btn-primary" to="/games">Browse Product</Link>
-            </Col>
-        </Row>
+        <UserView productsData={products} />
     )
 }
