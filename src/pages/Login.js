@@ -35,7 +35,7 @@ export default function Login() {
         	    icon: "success",
         	    text: "Welcome to Ecommerce! Site"
         	});
-            <Navigate to="/" />
+            // <Navigate to="/" />
 		} 
         else if(data.message === "Invalid Email"){
 			Swal.fire({
@@ -77,7 +77,7 @@ export default function Login() {
         .then(data => {
             setUser({
               id: data.user._id,
-              isAdmin: data.isAdmin
+              isAdmin: data.user.isAdmin
             });
         })
     };
@@ -91,13 +91,11 @@ export default function Login() {
 
     }, [email, password]);
 
+   
     return (
-    	(user.id !== null) ?
-
-			<Navigate to="/" />
-
+    	    (user.id !== null && localStorage.getItem('token') !== null) ?
+		        <Navigate to="/" />
 			:
-	    	
 	        <Form onSubmit={(e) => authenticate(e)}>
 	        	<h1 className="my-5 text-center">Login</h1>
 	            <Form.Group controlId="userEmail">

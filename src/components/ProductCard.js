@@ -14,7 +14,7 @@ export default function ProductCard({props}) {
                     <Card.Subtitle>Description: </Card.Subtitle>
                     <Card.Text>{description}</Card.Text>
                     <Card.Subtitle>Price: </Card.Subtitle>
-                    <Card.Text>PHP{price}</Card.Text>
+                    <Card.Text>&#8369; {price}</Card.Text>
                     <Link className="btn btn-primary" to={`/products/${_id}`} variant="primary">Details</Link>
                 </Card.Body>
             </Card>

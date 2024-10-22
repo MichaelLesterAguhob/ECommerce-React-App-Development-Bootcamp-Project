@@ -10,13 +10,22 @@ export default function AppNavbar() {
 	const { user } = useContext(UserContext);
 
 	return(
-		<Navbar bg="secondary" expand="lg">
+		<Navbar bg="secondary" expand="lg" fixed="top">
 			<Container fluid>
 			    <Navbar.Brand as={Link} to="/" className='text-light'>Ecommerce</Navbar.Brand>
 			    <Navbar.Toggle aria-controls="basic-navbar-nav" />
 			    <Navbar.Collapse id="basic-navbar-nav">
 				    <Nav className="ms-auto" >
 				        <Nav.Link className='text-light' as={NavLink} to="/" exact="true">Products</Nav.Link>
+                        {
+                            user.isAdmin === false ?
+                            <>
+                                <Nav.Link className='text-light' as={NavLink} to="/cart" exact="true">Cart</Nav.Link>
+                                <Nav.Link className='text-light' as={NavLink} to="/orders" exact="true">Orders</Nav.Link>
+                            </>
+                            :
+                            null
+                        }
 				        {
                             user.id ? 
 								<>

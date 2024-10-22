@@ -8,7 +8,8 @@ import NavBar from './components/NavBar';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
-import ProductCatalog from './pages/ProductCatalog'
+import ProductCatalog from './pages/ProductCatalog';
+import ProductView from './pages/ProductView';
 
 function App() {
     const [user, setUser] = useState({
@@ -54,7 +55,7 @@ function App() {
             <Route path="/register" element={<Register />} />
              <Route path="/login" element={<Login />} />
              <Route path="/logout" element={<Logout />} />
-            {/* <Route path="/logout" element={<Logout />} /> */}
+            <Route path="/products/:id" element={<ProductView />} />
             {/* <Route path="*" element={<Error />} /> */}
           </Routes>
         </Container>
