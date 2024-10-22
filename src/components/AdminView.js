@@ -4,6 +4,8 @@ import React from "react";
 import {Button, Col, Container, Form, Row, Table} from "react-bootstrap";
 import ProductCard from "./ProductCard";
 import Swal from "sweetalert2";
+import EditProduct from "./EditProduct";
+import AddProduct from "./AddProduct";
 
 const AdminView = ({productsData, reloadProduct}) => {
     const [products, setProducts] = useState([]);
@@ -87,10 +89,7 @@ const AdminView = ({productsData, reloadProduct}) => {
                         {product.isActive ? "Active" : "Unvailable"}
                     </td>
                     <td>
-                        <button 
-                            className="btn btn-primary btn-sm me-2">
-                            Edit
-                        </button>
+                        <EditProduct product={product} reloadProduct={reloadProduct}/>
                         {
                             product.isActive === true ?
                                 <button 
@@ -140,7 +139,8 @@ const AdminView = ({productsData, reloadProduct}) => {
     } */
 
     return (
-        <Container className="mt-5 pt-5">
+        <Container className="mt-5 mb-5 p-0 pt-3">
+            <h1>Products</h1>
             <Container className="mb-2">
                 <Col xs={12} sm={10} md={8} lg={6}>
                     <Form>
@@ -149,15 +149,15 @@ const AdminView = ({productsData, reloadProduct}) => {
                             <Form.Control 
                                 type='text'
                                 required
-                                placeholder="Search product"
+                                placeholder="Search here..."
                             />
                             <Button className="btn btn-primary btn-sm">Search</Button>
                         </Form.Group>
                     </Form>
                 </Col>
             </Container>
-            <Container>
-                <Button className="btn btn-primary btn-sm mx-auto">Add Product</Button>
+            <Container className="mt-5 p-0 mb-2 d-md-flex justify-content-end">
+                <AddProduct reloadProduct={reloadProduct}/>
             </Container>
                 
             <Table striped bordered hover>
@@ -176,6 +176,7 @@ const AdminView = ({productsData, reloadProduct}) => {
               </tbody>
             </Table>
         </Container>
+
     )
 
 }

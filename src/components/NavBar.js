@@ -29,7 +29,9 @@ export default function AppNavbar() {
 				        {
                             user.id ? 
 								<>
-									<Nav.Link className='text-light' as={Link} to="/logout">Logout</Nav.Link>
+                                    <Nav.Link className='text-light' as={Link} to="#">Users</Nav.Link>
+                                    <Nav.Link className='text-light' as={Link} to="#">Profile</Nav.Link>
+									<Nav.Link className='text-center text-light bg-danger rounded mx-lg-5' as={Link} to="/logout">Logout</Nav.Link>
 								</>
 							: 
 								<>

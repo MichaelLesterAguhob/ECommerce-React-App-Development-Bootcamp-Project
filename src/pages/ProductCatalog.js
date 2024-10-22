@@ -38,7 +38,7 @@ export default function ProductCatalog() {
 
     return (
         user.isAdmin ?
-            <Container className='pt-3 pb-3'>
+            <Container>
                 <AdminView productsData={products} reloadProduct={reloadProduct}/>
             </Container>
         :
