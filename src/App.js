@@ -23,7 +23,7 @@ function App() {
     useEffect(() => {
         if(localStorage.getItem("token") !== null)
         {
-            fetch(`http://localhost:4008/b8/users/details`, {
+            fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/users/details`, {
             headers: {
                 Authorization: `Bearer ${ localStorage.getItem('token') }`
             }
@@ -36,7 +36,6 @@ function App() {
                 });
             })
         } else { 
-            console.log("else executed")
             setUser({
                 id: null,
                 isAdmin: null

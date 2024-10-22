@@ -14,7 +14,7 @@ export default function Login() {
 
     function authenticate(e) {
         e.preventDefault();
-		fetch('http://localhost:4008/b8/users/login',{
+		fetch('http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/users/login',{
 		method: 'POST',
 		headers: {
 			"Content-Type": "application/json"
@@ -68,7 +68,7 @@ export default function Login() {
 
 
     const retrieveUserDetails = (token) => {
-        fetch('http://localhost:4008/b8/users/details', {
+        fetch('http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/users/details', {
             headers: {
                 Authorization: `Bearer ${token}`
             }

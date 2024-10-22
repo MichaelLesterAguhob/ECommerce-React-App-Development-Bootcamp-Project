@@ -30,7 +30,7 @@ export default function Register() {
 	function registerUser(e) {
 		// Prevents page redirection via form submission
 		e.preventDefault();
-		fetch('http://localhost:4008/b8/users/register',{
+		fetch('http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/users/register',{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
