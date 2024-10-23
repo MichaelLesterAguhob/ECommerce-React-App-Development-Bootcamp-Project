@@ -12,6 +12,7 @@ import ProductCatalog from './pages/ProductCatalog';
 import ProductView from './pages/ProductView';
 import Cart from './pages/Cart';
 import Orders from './pages/Orders';
+import Profile from './pages/Profile';
 
 function App() {
     const [user, setUser] = useState({
@@ -60,6 +61,7 @@ function App() {
             <Route path="/products/:id" element={<ProductView />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/details" element={<Profile />} />
             {/* <Route path="*" element={<Error />} /> */}
           </Routes>
         </Container>
