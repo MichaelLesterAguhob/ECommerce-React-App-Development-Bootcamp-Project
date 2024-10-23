@@ -22,7 +22,7 @@ export default function AddToCart({product, quantity, setQuantity}) {
     }, [quantity])
 
     function addToCart(){
-        fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/cart/add-to-cart`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/add-to-cart`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

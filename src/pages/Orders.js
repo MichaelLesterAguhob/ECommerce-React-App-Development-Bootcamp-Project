@@ -8,7 +8,7 @@ export default function Orders() {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/orders/my-orders`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/orders/my-orders`, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`
@@ -18,7 +18,7 @@ export default function Orders() {
         .then(data => {
             const orderPromises = data.orders.map(order => {
                 const productPromises = order.productOrdered.map(item => 
-                    fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/products/${item.productId}`)
+                    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${item.productId}`)
                         .then(res => res.json())
                         .then(prodDetails => ({
                             productId: item.productId,

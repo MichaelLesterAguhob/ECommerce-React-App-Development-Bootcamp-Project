@@ -1,6 +1,6 @@
 
 {
-    "url": "",
+    "url": "hostedURL",
     "routesPrefix":{
 
         "users": "/b8/users",

@@ -14,7 +14,7 @@ const ProductView = () => {
     const {id} = useParams();
 
     useEffect(() => {
-        fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/products/${id}`)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${id}`)
         .then(res=>res.json())
         .then(data => {
             setProduct(data);

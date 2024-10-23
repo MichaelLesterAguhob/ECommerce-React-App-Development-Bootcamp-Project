@@ -35,7 +35,7 @@ export default function Cart() {
     }
 
     useEffect(() => {
-        fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/cart/get-cart`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/get-cart`, {
             headers: { Authorization: `Bearer ${token}` }
         })
         .then(res => res.json())
@@ -44,7 +44,7 @@ export default function Cart() {
 
             if (cartItems.length !== 0) {
                 const productPromises = cartItems.map(item => 
-                    fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/products/${item.productId}`)
+                    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${item.productId}`)
                     .then(res => res.json())
                     .then(product => ({
                         ...item,
@@ -93,7 +93,7 @@ export default function Cart() {
     }, [token, refresh]);
 
     function updateQuantity(productId, newQnty) {
-        fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/cart/update-cart-quantity`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/update-cart-quantity`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json', 
@@ -114,7 +114,7 @@ export default function Cart() {
     }
 
     function clearAllCartItems() {
-        fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/cart/clear-cart`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/clear-cart`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json', 
@@ -143,7 +143,7 @@ export default function Cart() {
     }
 
     function removeItems(itemToremove) {
-        fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/cart/${itemToremove}/remove-from-cart`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/${itemToremove}/remove-from-cart`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json', 

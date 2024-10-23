@@ -26,7 +26,7 @@ const UserView = ({productsData, reloadProduct}) => {
     function searchProduct(e) {
         e.preventDefault();
 
-        fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/products/search-by-name`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/products/search-by-name`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({

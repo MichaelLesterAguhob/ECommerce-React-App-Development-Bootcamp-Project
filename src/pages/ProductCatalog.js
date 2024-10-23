@@ -9,7 +9,7 @@ export default function ProductCatalog() {
     const [products, setProducts] = useState([]);
     
     useEffect(() => { 
-        let URL = user.isAdmin === true ? 'http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/products/all' : 'http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/products/active'
+        let URL = user.isAdmin === true ? `${process.env.REACT_APP_API_BASE_URL}/products/all` : `${process.env.REACT_APP_API_BASE_URL}/products/active`
         fetch(URL, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
@@ -23,7 +23,7 @@ export default function ProductCatalog() {
 
 
     const reloadProduct = () => {
-        let URL = user.isAdmin === true ? 'http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/products/all' : 'http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/products/active'
+        let URL = user.isAdmin === true ? `${process.env.REACT_APP_API_BASE_URL}/products/all` : `${process.env.REACT_APP_API_BASE_URL}/products/active`
         fetch(URL, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })

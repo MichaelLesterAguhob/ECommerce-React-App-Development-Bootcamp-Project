@@ -4,6 +4,7 @@ import { Navigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import UserContext from '../UserContext';
 
+
 export default function Login() {
 
 	const { user, setUser } = useContext(UserContext);
@@ -14,7 +15,7 @@ export default function Login() {
 
     function authenticate(e) {
         e.preventDefault();
-		fetch('http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/users/login',{
+		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/login`,{
 		method: 'POST',
 		headers: {
 			"Content-Type": "application/json"
@@ -75,7 +76,7 @@ export default function Login() {
 
 
     const retrieveUserDetails = (token) => {
-        fetch('http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/users/details', {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

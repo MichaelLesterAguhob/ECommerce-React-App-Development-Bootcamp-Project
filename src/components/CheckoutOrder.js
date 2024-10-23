@@ -6,7 +6,7 @@ export default function checkoutOrder({isEmpty, setRefresh}) {
     const token = localStorage.getItem("token");
     
     function checkoutOrder() {
-        fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/orders/checkout`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/orders/checkout`, {
             method: 'POST',
             headers: {
                     'Content-Type': 'application/json', 
