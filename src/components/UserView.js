@@ -11,12 +11,10 @@ const UserView = ({productsData, reloadProduct}) => {
     const [searchMode, setSearchMode] = useState(false);
 
     useEffect(() => {
-         if(searchMode && toSearch === "") {
-            setTimeout(() =>{
-                reloadProduct();
-                setSearchMode(false);
-            }, 2000)
-        }
+            if(searchMode && toSearch === "") {
+                    reloadProduct();
+                    setSearchMode(false);
+                }
     }, [searchMode, toSearch])
 
     useEffect( () => {

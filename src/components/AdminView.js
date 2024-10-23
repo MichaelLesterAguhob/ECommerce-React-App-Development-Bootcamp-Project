@@ -79,13 +79,11 @@ const AdminView = ({productsData, reloadProduct}) => {
     }
 
     useEffect(() => {
-        if(searchMode && toSearch === "") {
-           setTimeout(() =>{
-               reloadProduct();
-               setSearchMode(false);
-           }, 2000)
-       }
-   }, [searchMode, toSearch])
+            if(searchMode && toSearch === "") {
+                reloadProduct();
+                setSearchMode(false);
+            } 
+   }, [toSearch])
 
     useEffect( () => {
         setProducts(productsData.map((product, index) => {
@@ -123,7 +121,6 @@ const AdminView = ({productsData, reloadProduct}) => {
     
     function searchProduct(e) {
         e.preventDefault();
-        console.log("dassad")
         fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/products/search-by-name`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
@@ -195,7 +192,7 @@ const AdminView = ({productsData, reloadProduct}) => {
                     </Form>
                 </Col>
             </Container>
-            <Container className="mt-5 p-0 mb-2 d-md-flex justify-content-end">
+            <Container className="mt-3 p-0 mb-2 d-md-flex justify-content-end">
                 <AddProduct reloadProduct={reloadProduct}/>
             </Container>
                 
