@@ -106,7 +106,6 @@ export default function Cart() {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             if (data.message === "Item quantity updated successfully") {
                 setRefresh(true);
             }

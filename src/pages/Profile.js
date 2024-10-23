@@ -1,9 +1,6 @@
 
-import { useState, useEffect, useContext, useRef } from 'react';
-import  UserContext from '../UserContext';
+import { useState, useEffect, useRef } from 'react';
 import {Button, Col, Container, Form, Row} from 'react-bootstrap';
-import { useParams, Link} from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 export default function Profile() {
 

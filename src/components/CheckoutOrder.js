@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+
 import Swal from "sweetalert2";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export default function checkoutOrder({isEmpty, setRefresh}) {
     const token = localStorage.getItem("token");

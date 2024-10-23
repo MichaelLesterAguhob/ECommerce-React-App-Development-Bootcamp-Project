@@ -4,7 +4,6 @@ import { Table, Container } from "react-bootstrap";
 
 export default function Orders() {
     const token = localStorage.getItem('token');
-    const { user } = useContext(UserContext);
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {

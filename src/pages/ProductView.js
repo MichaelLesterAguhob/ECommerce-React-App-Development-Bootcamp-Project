@@ -1,9 +1,8 @@
 
 import { useState, useEffect, useContext } from 'react';
 import  UserContext from '../UserContext';
-import {Card, Carousel, Button, Container} from 'react-bootstrap';
+import {Card, Container} from 'react-bootstrap';
 import { useParams, Link} from 'react-router-dom';
-import Swal from 'sweetalert2';
 import AddToCart from '../components/AddToCart';
 
 const ProductView = () => {

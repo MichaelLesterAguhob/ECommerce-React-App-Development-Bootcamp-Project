@@ -1,8 +1,7 @@
 
 import { useState, useEffect } from "react";
 import React from "react";
-import {Button, Col, Container, Form, Row, Table} from "react-bootstrap";
-import ProductCard from "./ProductCard";
+import {Button, Col, Container, Form, Table} from "react-bootstrap";
 import Swal from "sweetalert2";
 import EditProduct from "./EditProduct";
 import AddProduct from "./AddProduct";
