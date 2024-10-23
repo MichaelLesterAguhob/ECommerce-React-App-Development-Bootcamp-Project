@@ -6,7 +6,6 @@ import { Container } from 'react-bootstrap';
 
 export default function ProductCatalog() {
     const {user} = useContext(UserContext);
-    // console.log(user)
     const [products, setProducts] = useState([]);
     
     useEffect(() => { 

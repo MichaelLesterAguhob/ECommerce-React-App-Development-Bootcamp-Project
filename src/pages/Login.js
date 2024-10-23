@@ -33,7 +33,9 @@ export default function Login() {
 			Swal.fire({
         	    title: "Login Successful",
         	    icon: "success",
-        	    text: "Welcome to Ecommerce! Site"
+        	    text: "Welcome to Ecommerce! Site",
+                timer: 2000,
+                timerProgressBar: true
         	});
             // <Navigate to="/" />
 		} 
@@ -41,22 +43,27 @@ export default function Login() {
 			Swal.fire({
                 title: "Invalid",
                 icon: "warning",
-                text: "Invalid Email Format!"
+                text: "Invalid Email Format!",
+                timer: 1500,
+                timerProgressBar: true
             });
 		}
         else if(data.message === "Email and password do not match"){
 			Swal.fire({
                 title: "Login Failed",
                 icon: "error",
-                text: "Email and password do not match!"
+                text: "Email and password do not match!",
+                timer: 1500,
+                timerProgressBar: true
             });
 		}
         else {
-          
 			Swal.fire({
                 title: "Authentication failed",
                 icon: "error",
-                text: "Check your login details and try again."
+                text: "Check your login details and try again.",
+                timer: 1500,
+                timerProgressBar: true
             });
 		}
 	})
