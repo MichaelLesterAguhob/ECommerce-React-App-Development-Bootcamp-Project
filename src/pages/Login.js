@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { Navigate } from 'react-router-dom'; 
+import { Form, Button, Row, Col, Container } from 'react-bootstrap';
+import { Navigate, Link } from 'react-router-dom'; 
 import Swal from 'sweetalert2';
 import UserContext from '../UserContext';
 
@@ -103,39 +103,49 @@ export default function Login() {
     	    (user.id !== null && localStorage.getItem('token') !== null) ?
 		        <Navigate to="/" />
 			:
-	        <Form onSubmit={(e) => authenticate(e)}>
-	        	<h1 className="my-5 text-center">Login</h1>
-	            <Form.Group controlId="userEmail">
-	                <Form.Label>Email address</Form.Label>
-	                <Form.Control 
-	                    type="email"
-	                    placeholder="Enter email"
-	                    value={email}
-            			onChange={(e) => setEmail(e.target.value)}
-	                    required
-	                />
-	            </Form.Group>
+            <Row className='d-flex justify-content-center mt-5'>
+                <Col xs={12} sm={10} md={8} lg={6} 
+                    className='p-4 rounded mt-5'
+                    style={{border: '1px solid #6C757D'}}>
+                    <Form onSubmit={(e) => authenticate(e)}>
+                        <h1 className="my-5 text-center">Login</h1>
+                        <Form.Group controlId="userEmail">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control 
+                                type="email"
+                                placeholder="Enter email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </Form.Group>
 
-	            <Form.Group controlId="password">
-	                <Form.Label>Password</Form.Label>
-	                <Form.Control 
-	                    type="password" 
-	                    placeholder="Password"
-	                    value={password}
-            			onChange={(e) => setPassword(e.target.value)}
-	                    required
-	                />
-	            </Form.Group>
-
-	             { isActive ? 
-	                <Button variant="primary" type="submit" id="submitBtn">
-	                    Login
-	                </Button>
-	                : 
-	                <Button variant="secondary" type="submit" id="submitBtn" disabled>
-	                    Login
-	                </Button>
-	            }
-	        </Form>
+                        <Form.Group controlId="password" className='mt-3'>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control 
+                                type="password" 
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </Form.Group>
+                        <Container className='d-flex justify-content-center mt-5 gap-4'>
+                            { isActive ? 
+                                <Button className="btn btn-primary" type="submit" id="submitBtn">
+                                    Login
+                                </Button>
+                                : 
+                                <Button variant="secondary" type="submit" id="submitBtn" disabled>
+                                    Login
+                                </Button>
+                            }
+                            <Link className="btn btn-success" to="/register">
+                                    Go to Register
+                            </Link>
+                        </Container>
+                    </Form>
+                </Col>
+            </Row>
     )
 }
