@@ -104,7 +104,7 @@ export default function AddProduct({reloadProduct}) {
                             />
                         </Form.Group>
                         <Container className="p-0 p-2 mt-3 d-flex gap-5 justify-content-end">
-                            <Button className="btn btn-primary" type="submit">Update</Button>
+                            <Button className="btn btn-primary" type="submit">Add Product</Button>
                             <Button className="btn btn-warning" onClick={hideModal}>Cancel</Button>
                         </Container>
                     </Form>

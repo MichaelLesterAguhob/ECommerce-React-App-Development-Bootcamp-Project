@@ -9,7 +9,8 @@ import AddProduct from "./AddProduct";
 
 const AdminView = ({productsData, reloadProduct}) => {
     const [products, setProducts] = useState([]);
-    // const [toSearch, setToSearch] = useState(""); - set for searching in admin addtional feature
+    const [toSearch, setToSearch] = useState("");
+    const [searchMode, setSearchMode] = useState(false);
 
     function archiveProduct(productId) {
         fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/products/${productId}/archive`, {
@@ -77,6 +78,15 @@ const AdminView = ({productsData, reloadProduct}) => {
         })
     }
 
+    useEffect(() => {
+        if(searchMode && toSearch === "") {
+           setTimeout(() =>{
+               reloadProduct();
+               setSearchMode(false);
+           }, 2000)
+       }
+   }, [searchMode, toSearch])
+
     useEffect( () => {
         setProducts(productsData.map((product, index) => {
             return(
@@ -110,10 +120,10 @@ const AdminView = ({productsData, reloadProduct}) => {
         }))
     }, [productsData])
 
-    /* set for searching in admin addtional feature
+    
     function searchProduct(e) {
         e.preventDefault();
-
+        console.log("dassad")
         fetch(`http://ec2-3-16-152-230.us-east-2.compute.amazonaws.com/b8/products/search-by-name`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
@@ -123,9 +133,36 @@ const AdminView = ({productsData, reloadProduct}) => {
         })
         .then(res => res.json())
         .then(data => {
-            if(data) {
-                setProducts(data.map(product => {
-                    return <ProductCard key={product._id} props={product}/>
+            if(data.length > 0) {
+                setProducts(data.map((product, index) => {
+                    return(
+                        <tr key={product._id}>
+                            <td>{index + 1}</td>
+                            <td>{product.name}</td>
+                            <td>{product.description}</td>
+                            <td>{product.price}</td>
+                            <td className={product.isActive ? "text-success" : "text-danger"}>
+                                {product.isActive ? "Active" : "Unvailable"}
+                            </td>
+                            <td>
+                                <EditProduct product={product} reloadProduct={reloadProduct}/>
+                                {
+                                    product.isActive === true ?
+                                        <button 
+                                            className="btn btn-warning btn-sm" 
+                                            onClick={() => archiveProduct(product._id)}>
+                                            Archive
+                                        </button>
+                                    :
+                                    <button 
+                                        className="btn btn-success btn-sm me-2" 
+                                        onClick={() => activateProduct(product._id)}>
+                                        Activate
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    )
                 }))
                 setSearchMode(true);
             } else {
@@ -136,22 +173,24 @@ const AdminView = ({productsData, reloadProduct}) => {
                 })
             }
         })
-    } */
+    }
 
     return (
         <Container className="mt-5 mb-5 p-0 pt-3">
             <h1>Products</h1>
             <Container className="mb-2">
                 <Col xs={12} sm={10} md={8} lg={6}>
-                    <Form>
+                    <Form onSubmit={e => searchProduct(e)}>
                         <Form.Group className="d-flex gap-2">
                             <Form.Label className="d-flex my-auto">Search</Form.Label>
                             <Form.Control 
                                 type='text'
                                 required
                                 placeholder="Search here..."
+                                value={toSearch}
+                                onChange={(e) => setToSearch(e.target.value)}
                             />
-                            <Button className="btn btn-primary btn-sm">Search</Button>
+                            <Button className="btn btn-primary btn-sm" type="submit">Search</Button>
                         </Form.Group>
                     </Form>
                 </Col>
