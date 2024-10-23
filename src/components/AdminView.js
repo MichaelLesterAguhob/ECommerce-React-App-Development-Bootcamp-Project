@@ -91,7 +91,7 @@ const AdminView = ({productsData, reloadProduct}) => {
                     <td>{index + 1}</td>
                     <td>{product.name}</td>
                     <td>{product.description}</td>
-                    <td>{product.price}</td>
+                    <td>&#8369; {product.price.toLocaleString()}</td>
                     <td className={product.isActive ? "text-success" : "text-danger"}>
                         {product.isActive ? "Active" : "Unvailable"}
                     </td>
