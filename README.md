@@ -1,6 +1,6 @@
 ## Dummy Accounts
 ### Admin User:
-email: admi123n@mail.com
+email: admi123@mail.com
 pass: admin123
 
 ### Regular User:
