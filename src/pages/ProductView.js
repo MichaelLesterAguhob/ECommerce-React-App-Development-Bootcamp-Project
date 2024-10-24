@@ -21,6 +21,12 @@ const ProductView = () => {
     }, [id])
 
 
+    useEffect(() => {
+        if(quantity < 0) {
+            setQuantity(1);
+        } 
+    }, [quantity])
+
     return (
         <Container className='mt-5 pt-5'>
             <Link className='btn btn-secondary mb-2' to="/">Back</Link>

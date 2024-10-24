@@ -43,7 +43,7 @@ export default function Profile() {
             setMobile(data.user.mobileNo);
             setPassword(data.user.password)
         })
-    }, [])
+    }, [token])
 
     return (
         <Container className='mt-5 pt-5 pb-5' >

@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import UserContext from '../UserContext';
+import { useState, useEffect } from "react";
 import { Table, Container } from "react-bootstrap";
 
 export default function Orders() {

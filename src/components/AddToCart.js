@@ -12,16 +12,18 @@ export default function AddToCart({product, quantity, setQuantity}) {
         setProductId(product._id);
     }, [product._id])
 
-    useEffect(() => {
-        if(quantity < 0) {
-            setQuantity(1);
-        } else {
-            let stotal = quantity * product.price;
-            setSubtotal(stotal);   
-        }
-    }, [quantity])
+    // useEffect(() => {
+    //     if(quantity < 0) {
+    //         setQuantity(1);
+    //     } else {
+    //         let stotal = quantity * product.price;
+    //         setSubtotal(stotal);   
+    //     }
+    // }, [])
 
     function addToCart(){
+        let stotal = quantity * product.price;
+        setSubtotal(stotal);
         fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/add-to-cart`, {
             method: 'POST',
             headers: {

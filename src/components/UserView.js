@@ -15,7 +15,7 @@ const UserView = ({productsData, reloadProduct}) => {
                     reloadProduct();
                     setSearchMode(false);
                 }
-    }, [searchMode, toSearch])
+    }, [searchMode, toSearch, reloadProduct])
 
     useEffect( () => {
         setProducts(productsData.map(product => {
