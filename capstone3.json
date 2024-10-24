@@ -1,13 +1,5 @@
 
 {
-    "url": "hostedURL",
-    "routesPrefix":{
-
-        "users": "/b8/users",
-        "products": "/b8/products",
-        "orders": "/b8/orders",
-        "cart": "/b8/cart"
-
-    }
+    "url": " http://zuitt-bootcamp-prod-481-7994-aguhob.s3-website.us-east-1.amazonaws.com"
 }
 
