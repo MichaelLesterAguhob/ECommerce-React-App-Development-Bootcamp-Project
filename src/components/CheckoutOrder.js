@@ -1,10 +1,18 @@
 
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
+import { useEffect } from "react";
 
-export default function checkoutOrder({isEmpty, setRefresh}) {
+export default function CheckoutOrder({isEmpty, setRefresh, showModal, confirmCheckout, setAction}) {
     const token = localStorage.getItem("token");
     
+    useEffect(() => {
+        if(confirmCheckout === true) {
+            checkoutOrder();
+        }
+    }, [confirmCheckout])
+
+
     function checkoutOrder() {
 
         if(!navigator.onLine) {
@@ -55,7 +63,7 @@ export default function checkoutOrder({isEmpty, setRefresh}) {
             isEmpty === true?
             <Button className="btn btn-success" disabled>Checkout Order</Button>
              :
-            <Button className="btn btn-success" onClick={(e) => checkoutOrder()}>Checkout Order</Button>
+            <Button className="btn btn-success" onClick={() => {showModal(true); setAction('checkout')}}>Checkout Order</Button>
 
    )
 }

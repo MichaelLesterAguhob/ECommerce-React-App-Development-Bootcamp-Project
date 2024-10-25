@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import UserContext from '../UserContext';
-import { Button, Container, Table } from "react-bootstrap";
+import { Button, Container, Table, Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { Navigate } from "react-router-dom";
 import CheckoutOrder from "../components/CheckoutOrder";
@@ -12,7 +12,34 @@ export default function Cart() {
     const [refresh, setRefresh] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
     const [isEmpty, setIsEmpty] = useState(true);
+    
+    const [confirm, setConfirm] = useState(false);
+    const [confirmCheckout, setConfirmCheckout] = useState(false);
+    const [showHideModal, setModal] = useState(false);
+    const [action, setAction] = useState("");
 
+    function showModal(state) {
+        setModal(state);
+    }
+
+    function confirmAction() {
+        setModal(false);
+        setConfirm(true);
+    }
+
+    function cancelAction() {
+        setModal(false);
+        setConfirm(false);
+    }
+    
+    useEffect(() => {
+        if(confirm === true && action === "deleteAll") {
+            clearAllCartItems();
+        }
+        else if(confirm === true && action === "checkout") {
+            setConfirmCheckout(true);
+        }
+    }, [confirm, action])
 
     let isNotified = false;
     setInterval(() => {
@@ -206,12 +233,13 @@ export default function Cart() {
                 <Button 
                     className="btn btn-danger my-auto" 
                     style={{ height: '40px' }} 
-                    onClick={clearAllCartItems} 
+                    onClick={() => {setAction("deleteAll"); showModal(true)}} 
                     disabled={isEmpty}
                 >
                     Delete ALL
-                </Button>
+                </Button> 
             </div>
+
             <Table striped bordered hover className="mt-4">
                 <thead>
                     <tr>
@@ -239,7 +267,18 @@ export default function Cart() {
                     </tr>
                 </tfoot>
             </Table>
-            <CheckoutOrder isEmpty={isEmpty} setRefresh={setRefresh} />
+
+            <CheckoutOrder isEmpty={isEmpty} setRefresh={setRefresh} showModal={showModal} confirmCheckout={confirmCheckout} setAction={setAction}/>
+
+            <Modal show={showHideModal} onHide={cancelAction} className="mt-5">  
+            <Modal.Header closeButton>
+                    <Modal.Title>Confirm Action</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="d-flex justify-content-center gap-5"> 
+                <Button className="brn btn-primary" onClick={() => confirmAction()}>Confirm</Button>
+                <Button className="brn btn-warning" onClick={() => cancelAction()}>Cancel</Button>
+            </Modal.Body>
+            </Modal>
         </Container>
     );
 }
