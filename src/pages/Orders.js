@@ -38,27 +38,13 @@ export default function Orders() {
         })
         .then(res => res.json())
         .then(data => {
-            const orderPromises = data.orders.map(order => {
-                const productPromises = order.productOrdered.map(item => 
-                    fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${item.productId}`)
-                        .then(res => res.json())
-                        .then(prodDetails => ({
-                            productId: item.productId,
-                            name: prodDetails.name
-                        }))
-                );
+            // console.log(data)
+            // if(data.orders.length > 0) {
+                setOrders(data.orders)
+            // }
 
-                return Promise.all(productPromises).then(productDetails => ({
-                    ...order,
-                    productDetails
-                }));
-            });
-            return Promise.all(orderPromises);
+            console.log(data.orders)
         })
-        .then(ordersWithProducts => {
-            setOrders(ordersWithProducts);
-        })
-        .catch(err => console.error(err));
     }, [token]);
 
     return (
@@ -83,16 +69,23 @@ export default function Orders() {
                             <td>{index + 1}</td>
                             <td>
                                 <ol>
-                                    {order.productDetails.map(prod => (
-                                        <li key={prod.productId}>{prod.name}</li>
+                                    {order.productOrdered.map(prod => (
+                                        <li key={prod.productId._id}><h6>{prod.productId.name}</h6>
+                                             <ul style={{listStyle: 'none'}} className="text-success">
+                                                <li> price: &#8369; {prod.productId.price.toLocaleString()}</li>
+                                                <li> qnty: x{prod.quantity}</li>
+                                                <li> subtotal: &#8369; {prod.subtotal.toLocaleString()}</li>
+                                            </ul>
+                                        </li>
                                     ))}
                                 </ol>
                             </td>
-                            <td>&#8369; {order.totalPrice.toLocaleString()}</td>
+                            <td className="text-primary">&#8369; {order.totalPrice.toLocaleString()}</td>
                             <td>{new Date(order.orderedOn).toLocaleString()}</td>
-                            <td>{order.status}</td>
+                            <td className={order.status === "Pending" ? "text-danger" : "text-success"}>{order.status}</td>
                         </tr>
                     ))}
+                 
                 </tbody>
             </Table>
         </Container>

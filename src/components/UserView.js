@@ -73,7 +73,7 @@ const UserView = ({productsData, reloadProduct}) => {
                     text: "Try another keyword"
                 })
             }
-        })
+        }).catch(err => console.error(err));
     }
 
     return (
