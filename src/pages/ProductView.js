@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useContext, useRef } from 'react';
 import  UserContext from '../UserContext';
-import {Button, Card, Container, Toast} from 'react-bootstrap';
+import {Button, Card, Container} from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { useParams, Link} from 'react-router-dom';
 import AddToCart from '../components/AddToCart';
