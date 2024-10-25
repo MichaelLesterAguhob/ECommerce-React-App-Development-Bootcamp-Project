@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Toast } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import {UserProvider} from './UserContext';
@@ -15,16 +16,42 @@ import Orders from './pages/Orders';
 import Profile from './pages/Profile';
 
 function App() {
+    
+    let isNotified = false;
+
     const [user, setUser] = useState({
         id: null,
         isAdmin: null
     })
+
+    setInterval(() => {
+        if(!navigator.onLine) {
+            if(!isNotified) {
+                Swal.fire({
+                    title: "No internet connection!",
+                    icon: "error"
+                })
+                isNotified = true;
+            }
+            return;
+        } else {
+            isNotified = false;
+        }
+    }, 1000)
+        
 
     function unsetUser() {
         localStorage.clear();
     }
 
     useEffect(() => {
+        if(!navigator.onLine) {
+                Swal.fire({
+                    title: "No internet connection!",
+                    icon: "error"
+                })
+                return;
+        }
         if(localStorage.getItem("token") !== null)
         {
             fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
@@ -45,7 +72,7 @@ function App() {
                 isAdmin: null
             })
         }
-            
+      
     }, []);
 
   return (

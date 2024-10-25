@@ -13,8 +13,34 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [isActive, setIsActive] = useState(true);
 
+
+    let isNotified = false;
+    setInterval(() => {
+        if(!navigator.onLine) {
+            if(!isNotified) {
+                Swal.fire({
+                    title: "No internet connection!",
+                    icon: "error"
+                })
+                isNotified = true;
+            }
+            return;
+        } else {
+            isNotified = false;
+        }
+    }, 1000)
+
     function authenticate(e) {
         e.preventDefault();
+
+        if(!navigator.onLine) {
+            Swal.fire({
+                title: "No internet connection!",
+                icon: "error"
+            })
+            return;
+        }
+     
 		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/login`,{
 		method: 'POST',
 		headers: {

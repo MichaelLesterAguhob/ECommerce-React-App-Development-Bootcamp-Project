@@ -1,6 +1,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import {Button, Col, Container, Form, Row} from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
 export default function Profile() {
 
@@ -28,8 +29,30 @@ export default function Profile() {
     }, [editMode])
 
     
+    let isNotified = false;
+    setInterval(() => {
+        if(!navigator.onLine) {
+            if(!isNotified) {
+                Swal.fire({
+                    title: "No internet connection!",
+                    icon: "error"
+                })
+                isNotified = true;
+            }
+            return;
+        } else {
+            isNotified = false;
+        }
+    }, 1000)
 
     useEffect(() => {
+        if(!navigator.onLine) {
+                Swal.fire({
+                    title: "No internet connection!",
+                    icon: "error"
+                })
+                return;
+        }
         fetch(`${process.env.REACT_APP_API_BASE_URL}/users/details`, {
             headers: {
                 Authorization: `Bearer ${token}`

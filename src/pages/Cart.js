@@ -13,6 +13,24 @@ export default function Cart() {
     const [totalPrice, setTotalPrice] = useState(0);
     const [isEmpty, setIsEmpty] = useState(true);
 
+
+    let isNotified = false;
+    setInterval(() => {
+        if(!navigator.onLine) {
+            if(!isNotified) {
+                Swal.fire({
+                    title: "No internet connection!",
+                    icon: "error"
+                })
+                isNotified = true;
+            }
+            return;
+        } else {
+            isNotified = false;
+        }
+    }, 1000)
+    
+
     function addQnty(productId) {
         let itemQnty = document.getElementById(productId);
         itemQnty.value = parseInt(itemQnty.value) + 1;
@@ -35,6 +53,14 @@ export default function Cart() {
     }
 
     useEffect(() => {
+        if(!navigator.onLine) {
+            Swal.fire({
+                title: "No internet connection!",
+                icon: "error"
+            })
+            return;
+         }
+
         fetch(`${process.env.REACT_APP_API_BASE_URL}/cart/get-cart`, {
             headers: { Authorization: `Bearer ${token}` }
         })

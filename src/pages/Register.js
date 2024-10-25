@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import UserContext from '../UserContext';
 
 export default function Register() {
-
+    
 	const {user} = useContext(UserContext);
 
 	const [firstName, setFirstName] = useState("");
@@ -18,6 +18,24 @@ export default function Register() {
     const [isActive, setIsActive] = useState(false);
     const [reDirect, setRedirect] = useState(false);
 
+
+    let isNotified = false;
+    setInterval(() => {
+        if(!navigator.onLine) {
+            if(!isNotified) {
+                Swal.fire({
+                    title: "No internet connection!",
+                    icon: "error"
+                })
+                isNotified = true;
+            }
+            return;
+        } else {
+            isNotified = false;
+        }
+    }, 1000)
+    
+
 	function clearInputs() {
         setFirstName('');
         setlastName('');
@@ -28,7 +46,14 @@ export default function Register() {
     }
 
 	function registerUser(e) {
-		// Prevents page redirection via form submission
+        if(!navigator.onLine) {
+            Swal.fire({
+                title: "No internet connection!",
+                icon: "error"
+            })
+            return;
+        }
+        
 		e.preventDefault();
 		fetch(`${process.env.REACT_APP_API_BASE_URL}/users/register`,{
             method: 'POST',

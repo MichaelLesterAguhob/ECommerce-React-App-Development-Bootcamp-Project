@@ -11,6 +11,23 @@ const AdminView = ({productsData, reloadProduct}) => {
     const [toSearch, setToSearch] = useState("");
     const [searchMode, setSearchMode] = useState(false);
 
+    let isNotified = false;
+    
+    setInterval(() => {
+        if(!navigator.onLine) {
+            if(!isNotified) {
+                Swal.fire({
+                    title: "No internet connection!",
+                    icon: "error"
+                })
+                isNotified = true;
+            }
+            return
+        } else {
+            isNotified = false;
+        }
+    }, 1000)
+
     function archiveProduct(productId) {
         fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${productId}/archive`, {
             method: 'PATCH',
@@ -120,6 +137,15 @@ const AdminView = ({productsData, reloadProduct}) => {
     
     function searchProduct(e) {
         e.preventDefault();
+
+        if(!navigator.onLine) {
+            Swal.fire({
+                title: "No internet connection!",
+                icon: "error"
+            })
+            return;
+        }
+
         fetch(`${process.env.REACT_APP_API_BASE_URL}/products/search-by-name`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},

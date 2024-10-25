@@ -11,6 +11,22 @@ export default function AddProduct({reloadProduct}) {
 
     const [showHideModal, setShowHideModal] = useState(false);
 
+    let isNotified = false;
+    setInterval(() => {
+        if(!navigator.onLine) {
+            if(!isNotified) {
+                Swal.fire({
+                    title: "No internet connection!",
+                    icon: "error"
+                })
+                isNotified = true;
+            }
+            return;
+        } else {
+            isNotified = false;
+        }
+    }, 1000)
+
     const showModal = () => {
         setShowHideModal(true)
     }
@@ -24,6 +40,14 @@ export default function AddProduct({reloadProduct}) {
 
     const addProduct = (e) => {
         e.preventDefault();
+
+        if(!navigator.onLine) {
+            Swal.fire({
+                title: "No internet connection!",
+                icon: "error"
+            })
+            return;
+        }
 
         fetch(`${process.env.REACT_APP_API_BASE_URL}/products/`, {
             method: 'POST',

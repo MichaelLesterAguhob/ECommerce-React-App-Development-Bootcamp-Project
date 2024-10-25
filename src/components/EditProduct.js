@@ -25,6 +25,14 @@ export default function EditProduct ({product, reloadProduct}) {
     const updateProduct = (e) => {
         e.preventDefault();
 
+        if(!navigator.onLine) {
+            Swal.fire({
+                title: "No internet connection!",
+                icon: "error"
+            })
+            return;
+        }
+
         fetch(`${process.env.REACT_APP_API_BASE_URL}/products/${productId}/update`, {
             method: 'PATCH',
             headers: {

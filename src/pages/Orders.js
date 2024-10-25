@@ -1,11 +1,35 @@
 import { useState, useEffect } from "react";
 import { Table, Container } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 export default function Orders() {
     const token = localStorage.getItem('token');
     const [orders, setOrders] = useState([]);
 
+    let isNotified = false;
+    setInterval(() => {
+        if(!navigator.onLine) {
+            if(!isNotified) {
+                Swal.fire({
+                    title: "No internet connection!",
+                    icon: "error"
+                })
+                isNotified = true;
+            }
+            return;
+        } else {
+            isNotified = false;
+        }
+    }, 1000)
+
     useEffect(() => {
+            if(!navigator.onLine) {
+                Swal.fire({
+                    title: "No internet connection!",
+                    icon: "error"
+                })
+                return;
+        }
         fetch(`${process.env.REACT_APP_API_BASE_URL}/orders/my-orders`, {
             headers: {
                 'Content-Type': 'application/json',

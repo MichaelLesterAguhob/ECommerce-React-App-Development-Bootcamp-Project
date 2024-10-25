@@ -6,6 +6,15 @@ export default function checkoutOrder({isEmpty, setRefresh}) {
     const token = localStorage.getItem("token");
     
     function checkoutOrder() {
+
+        if(!navigator.onLine) {
+            Swal.fire({
+                title: "No internet connection!",
+                icon: "error"
+            })
+            return
+        }
+
         fetch(`${process.env.REACT_APP_API_BASE_URL}/orders/checkout`, {
             method: 'POST',
             headers: {
