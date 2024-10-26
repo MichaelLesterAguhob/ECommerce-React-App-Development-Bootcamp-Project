@@ -14,6 +14,7 @@ import ProductView from './pages/ProductView';
 import Cart from './pages/Cart';
 import Orders from './pages/Orders';
 import Profile from './pages/Profile';
+import AllUsers from './pages/AllUsers';
 
 function App() {
     
@@ -89,6 +90,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/details" element={<Profile />} />
+            <Route path='/all-users' element={<AllUsers /> } />
             {/* <Route path="*" element={<Error />} /> */}
           </Routes>
         </Container>

@@ -28,7 +28,7 @@ export default function AppNavbar() {
                         }
                         { 
                             user.isAdmin ?
-                            <Nav.Link className='text-light' as={Link} to="#">Users</Nav.Link>
+                            <Nav.Link className='text-light' as={Link} to="/all-users">Users</Nav.Link>
                             :
                             null
                         }

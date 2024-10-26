@@ -42,8 +42,6 @@ export default function Orders() {
             // if(data.orders.length > 0) {
                 setOrders(data.orders)
             // }
-
-            console.log(data.orders)
         })
     }, [token]);
 
