@@ -62,7 +62,9 @@ export default function Orders() {
                     </tr>
                 </thead>
                 <tbody>
-                    {orders.map((order, index) => (
+                    {
+                    (orders)?
+                    orders.map((order, index) => (
                         <tr key={order._id}>
                             <td>{index + 1}</td>
                             <td>
@@ -82,7 +84,12 @@ export default function Orders() {
                             <td>{new Date(order.orderedOn).toLocaleString()}</td>
                             <td className={order.status === "Pending" ? "text-danger" : "text-success"}>{order.status}</td>
                         </tr>
-                    ))}
+                    ))
+                    :
+                    <tr>
+                        <td colSpan={5} className="text-center">No Orders Youret</td>
+                    </tr>
+                }
                  
                 </tbody>
             </Table>

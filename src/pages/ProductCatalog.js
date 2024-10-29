@@ -65,7 +65,7 @@ export default function ProductCatalog() {
                 <AdminView productsData={products} reloadProduct={reloadProduct}/>
             </Container>
         :
-            <Container className='pt-3 pb-3'>
+            <Container fluid className='pt-3 pb-3'>
                 <UserView productsData={products} reloadProduct={reloadProduct}/>
             </Container>
     )

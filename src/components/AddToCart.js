@@ -74,7 +74,7 @@ export default function AddToCart({product, inputQnty}) {
     }
 
    return(
-    <Button onClick={() => addToCart()} className="ms-auto" style={{ minWidth: '120px' }}>Add to Cart</Button>
+    <Button onClick={() => addToCart()} className="ms-auto">Add to Cart</Button>
 
    )
 }

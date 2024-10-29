@@ -80,7 +80,7 @@ function App() {
     <UserProvider value={{user, setUser, unsetUser}}>
       <Router>
         <NavBar />
-        <Container>
+        <Container fluid className='p-sm-3 p-md-5'>
           <Routes>
             <Route path="/" element={<ProductCatalog />} />
             <Route path="/register" element={<Register />} />

@@ -4,7 +4,7 @@ import { Modal, Button, Form, Container } from "react-bootstrap";
 
 export default function AddProduct({reloadProduct}) {
     const token = localStorage.getItem("token");
-    
+    const [images, setImages] = useState([]);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(0);
@@ -36,9 +36,10 @@ export default function AddProduct({reloadProduct}) {
         setName("");
         setDescription("");
         setPrice(0);
+        setImages([]);
     }
 
-    const addProduct = (e) => {
+    const addProduct = async (e) => {
         e.preventDefault();
 
         if(!navigator.onLine) {
@@ -49,17 +50,20 @@ export default function AddProduct({reloadProduct}) {
             return;
         }
 
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/products/`, {
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('price', price);
+        images.forEach(image => {
+            formData.append('images', image);
+        });
+
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/products/`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json', 
                 Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({
-                name: name,
-                description: description,
-                price: price
-            })
+            body: formData
         })
         .then(res => res.json())
         .then(data => {
@@ -94,7 +98,7 @@ export default function AddProduct({reloadProduct}) {
     return (
         <>
             <Button className="btn btn-primary btn-sm" onClick={showModal}>Add Product</Button>
-            <Modal show={showHideModal} onHide={hideModal} className="mt-5">
+            <Modal show={showHideModal} onHide={hideModal}  className="mt-5" inert={!showHideModal}>
                 <Modal.Header closeButton> 
                     <Modal.Title>Add Product</Modal.Title>
                 </Modal.Header>
@@ -125,6 +129,14 @@ export default function AddProduct({reloadProduct}) {
                                 required
                                 value={price}
                                 onChange={e => setPrice(e.target.value)}
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Image</Form.Label>
+                            <Form.Control 
+                                type="file"
+                                multiple
+                                onChange={e => setImages(Array.from(e.target.files))}
                             />
                         </Form.Group>
                         <Container className="p-0 p-2 mt-3 d-flex gap-5 justify-content-end">

@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import React from "react";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import ProductCard from "./ProductCard";
 import Swal from "sweetalert2";
 
@@ -36,10 +36,20 @@ const UserView = ({productsData, reloadProduct}) => {
     }, [searchMode, toSearch, reloadProduct])
 
     useEffect( () => {
-        setProducts(productsData.map(product => {
-            return <ProductCard key={product._id} props={product}/>
-        }))
+        if(productsData.length > 0) {
+            setProducts(productsData.map(product => {
+                return <ProductCard key={product._id} props={product}/>
+            }))
+        } else {
+            setProducts( () => {
+                return (
+                    <Container><h3 className="text-muted">No Product Found.</h3></Container>
+                )
+            })
+        }
     }, [productsData])
+
+
 
     function searchProduct(e) {
         e.preventDefault();
@@ -61,12 +71,17 @@ const UserView = ({productsData, reloadProduct}) => {
         })
         .then(res => res.json())
         .then(data => {
-            if(data) {
+            if(data.length > 0) {
                 setProducts(data.map(product => {
                     return <ProductCard key={product._id} props={product}/>
                 }))
                 setSearchMode(true);
             } else {
+                setProducts( () => {
+                    return (
+                        <Container><h3 className="text-muted">No Product Found.</h3></Container>
+                    )
+                })
                 Swal.fire({
                     title: "Product not found!",
                     icon: "warning",
@@ -95,7 +110,7 @@ const UserView = ({productsData, reloadProduct}) => {
                     </Form>
                 </Col>
             </Row>
-            <Row className="g-2 mt-4">
+            <Row className="g-4 mt-4">
                 {products}
             </Row>
         </>

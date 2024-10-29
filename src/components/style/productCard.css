@@ -1,0 +1,42 @@
+
+.productCards {
+    height: 547px;
+    width: 100%;
+    overflow: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.productCardBody {
+    height: 250px;
+    width: 100%;
+    /* background-color: forestgreen; */
+}
+
+.productCarouselItem{
+    height: 14rem;
+    width: 100%;
+    /* background-color: blue; */
+    padding: 10px;
+}
+
+.carouselImage{
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    object-fit: cover;
+}
+
+.productCardsText{
+    height: 50px;
+    overflow: hidden;
+}
+
+.productCardsPrice{
+    display: flex;
+    align-items: center;
+}
+
+.viewBtn{
+    min-width: 80px;
+    margin-top: auto;
+}

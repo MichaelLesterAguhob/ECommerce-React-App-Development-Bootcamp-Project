@@ -102,36 +102,46 @@ const AdminView = ({productsData, reloadProduct}) => {
    }, [toSearch])
 
     useEffect( () => {
-        setProducts(productsData.map((product, index) => {
-            return(
-                <tr key={product._id}>
-                    <td>{index + 1}</td>
-                    <td>{product.name}</td>
-                    <td>{product.description}</td>
-                    <td>&#8369; {product.price.toLocaleString()}</td>
-                    <td className={product.isActive ? "text-success" : "text-danger"}>
-                        {product.isActive ? "Active" : "Unvailable"}
-                    </td>
-                    <td>
-                        <EditProduct product={product} reloadProduct={reloadProduct}/>
-                        {
-                            product.isActive === true ?
+        if(productsData.length > 0) {
+            setProducts(productsData.map((product, index) => {
+                return(
+                    <tr key={product._id}>
+                        <td>{index + 1}</td>
+                        <td>{product.name}</td>
+                        <td>{product.description}</td>
+                        <td>&#8369; {product.price.toLocaleString()}</td>
+                        <td className={product.isActive ? "text-success" : "text-danger"}>
+                            {product.isActive ? "Active" : "Unvailable"}
+                        </td>
+                        <td>
+                            <EditProduct product={product} reloadProduct={reloadProduct}/>
+                            {
+                                product.isActive === true ?
+                                    <button 
+                                        className="btn btn-warning btn-sm" 
+                                        onClick={() => archiveProduct(product._id)}>
+                                        Archive
+                                    </button>
+                                :
                                 <button 
-                                    className="btn btn-warning btn-sm" 
-                                    onClick={() => archiveProduct(product._id)}>
-                                    Archive
+                                    className="btn btn-success btn-sm me-2" 
+                                    onClick={() => activateProduct(product._id)}>
+                                    Activate
                                 </button>
-                            :
-                            <button 
-                                className="btn btn-success btn-sm me-2" 
-                                onClick={() => activateProduct(product._id)}>
-                                Activate
-                            </button>
-                        }
-                    </td>
-                </tr>
-            )
-        }))
+                            }
+                        </td>
+                    </tr>
+                )
+            }))
+        } else {
+            setProducts(() => {
+                return(
+                    <tr>
+                        <td colSpan={6} className="text-center">No Products yet</td>
+                    </tr>
+                )
+            })
+        }
     }, [productsData])
 
     

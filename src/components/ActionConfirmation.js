@@ -6,7 +6,7 @@ export default function ActionConfirmation({showHide}) {
    
 
     return(
-        <Modal show={showHideModal} onHide={cancelAction} className="mt-5">  
+        <Modal show={showHideModal} onHide={cancelAction} className="mt-5" inert={!show}>  
             <Modal.Header closeButton>
 
             </Modal.Header>

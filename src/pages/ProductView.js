@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useContext, useRef } from 'react';
 import  UserContext from '../UserContext';
-import {Button, Card, Container} from 'react-bootstrap';
+import {Button, Card, Carousel, Container} from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { useParams, Link} from 'react-router-dom';
 import AddToCart from '../components/AddToCart';
@@ -9,10 +9,11 @@ import AddToCart from '../components/AddToCart';
 const ProductView = () => {
     
     const {user} = useContext(UserContext);
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState([]);
     const {id} = useParams();
     const inputQnty = useRef(null);
-    
+    const [photos, setPhotos] = useState([]);
+
     let isNotified = false;
     setInterval(() => {
         if(!navigator.onLine) {
@@ -58,19 +59,36 @@ const ProductView = () => {
         .then(res=>res.json())
         .then(data => {
             setProduct(data);
+            if(data.images.length > 0) {
+                setPhotos(data.images.map((image, index) => {
+                    return(
+                        <Carousel.Item key={index}>
+                            <img 
+                            src={`${process.env.REACT_APP_API_BASE_URL}/${image.imagePath}`}
+                            alt='Product'
+                            className="d-block image img-fluid"
+                            /> 
+                        </Carousel.Item>
+                    )
+                }))
+            }
         })
-    }, [])
+    }, [id])
+
+   
 
     return (
-        <Container className='mt-5 pt-5 mb-5' >
+        <Container className='mt-5 pt-4 mb-5' >
             <Link className='btn btn-secondary mb-2' to="/">Back</Link>
-            <Card style={{ minHeight: '500px', height: '500px' }}> 
+            <Card> 
                 <Card.Body>
-                    <Container style={{minHeight: '70%'}}>
-                        Space for Image
+                    <Container>
+                        <Carousel interval={null} pause='hover'>
+                            {photos}
+                        </Carousel>
                     </Container>
-                        <Card.Title style={{minHeight: '12%'}}>{product.name}</Card.Title>
-                        <Card.Subtitle style={{minHeight: '18%'}}>{product.description}</Card.Subtitle>
+                        <Card.Title>{product.name}</Card.Title>
+                        <Card.Subtitle>{product.description}</Card.Subtitle>
                 </Card.Body>
                 <Card.Footer>
                     <Container className='d-flex justify-content-between'>
@@ -80,16 +98,28 @@ const ProductView = () => {
                         {
                             user.id ?
                             <>
-                                <Container className='d-flex gap-2'>
-                                    <p className='my-auto'>Quantity:</p>
-                                    <input 
-                                        type="number"
-                                        style={{width: '50px', height: '30px'}}
-                                        className='text-center form-control my-auto'    
-                                        ref={inputQnty}
-                                        />
-                                        <Button className='btn btn-success text-center d-flex justify-content-center my-auto' style={{width: '30px', height: '30px', alignItems: 'center'}} onClick={addQuantity}>+</Button>
-                                        <Button className='btn btn-warning text-center d-flex justify-content-center my-auto' style={{width: '30px', height: '30px', alignItems: 'center'}} onClick={subtQuantity}>-</Button>
+                                <Container className='d-md-flex gap-2'>
+                                    <Container className='d-flex gap-2 mb-3'>
+                                        <p className='my-auto'>Quantity:</p>
+                                        <input 
+                                            type="number"
+                                            style={{width: '50px', height: '30px'}}
+                                            className='text-center form-control my-auto'    
+                                            ref={inputQnty}
+                                            />
+                                            <Button 
+                                                className='btn btn-success text-center d-flex justify-content-center my-auto' 
+                                                style={{width: '30px', height: '30px', alignItems: 'center'}} 
+                                                onClick={addQuantity}
+                                            >+</Button>
+
+                                            <Button 
+                                                className='btn btn-warning text-center d-flex justify-content-center my-auto' 
+                                                style={{width: '30px', height: '30px', alignItems: 'center'}} 
+                                                onClick={subtQuantity}
+                                            >-</Button>
+                                        </Container>
+                                    
                                 
                                     <AddToCart  product={product} inputQnty={inputQnty}/>
                                 </Container>
