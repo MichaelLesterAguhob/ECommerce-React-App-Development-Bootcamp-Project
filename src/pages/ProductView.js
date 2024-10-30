@@ -5,6 +5,7 @@ import {Button, Card, Carousel, Container} from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { useParams, Link} from 'react-router-dom';
 import AddToCart from '../components/AddToCart';
+import '../styles/productView.css'
 
 const ProductView = () => {
     
@@ -62,11 +63,11 @@ const ProductView = () => {
             if(data.images.length > 0) {
                 setPhotos(data.images.map((image, index) => {
                     return(
-                        <Carousel.Item key={index}>
+                        <Carousel.Item key={index} className='prodViewCarouselItem'>
                             <img 
                             src={`${process.env.REACT_APP_API_BASE_URL}/${image.imagePath}`}
                             alt='Product'
-                            className="d-block image img-fluid"
+                            className="d-block img-fluid prodViewCarouoselImg mt-auto"
                             /> 
                         </Carousel.Item>
                     )
@@ -78,17 +79,17 @@ const ProductView = () => {
    
 
     return (
-        <Container className='mt-5 pt-4 mb-5' >
+        <Container className='mt-5 pt-4 mb-5' id='prodViewCont'>
             <Link className='btn btn-secondary mb-2' to="/">Back</Link>
-            <Card> 
-                <Card.Body>
-                    <Container>
-                        <Carousel interval={null} pause='hover'>
+            <Card id='prodViewCard'> 
+                <Card.Body id='prodViewCardBody'>
+                    <Container id='prodViewContCarousel'>
+                        <Carousel interval={null} pause='hover' id='prodViewCarousel'>
                             {photos}
                         </Carousel>
                     </Container>
-                        <Card.Title>{product.name}</Card.Title>
-                        <Card.Subtitle>{product.description}</Card.Subtitle>
+                        <Card.Title id='cardTitle'>{product.name}</Card.Title>
+                        <Card.Subtitle id='cardSubTitle'>{product.description}</Card.Subtitle>
                 </Card.Body>
                 <Card.Footer>
                     <Container className='d-flex justify-content-between'>
@@ -99,7 +100,7 @@ const ProductView = () => {
                             user.id ?
                             <>
                                 <Container className='d-md-flex gap-2'>
-                                    <Container className='d-flex gap-2 mb-3'>
+                                    <Container className='d-flex gap-2 my-auto'>
                                         <p className='my-auto'>Quantity:</p>
                                         <input 
                                             type="number"

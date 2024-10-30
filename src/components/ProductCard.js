@@ -1,7 +1,7 @@
 import { Card, Carousel, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import  PropTypes  from "prop-types";
-import './style/productCard.css'
+import '../styles/productCard.css'
 
 export default function ProductCard({props}) {
 

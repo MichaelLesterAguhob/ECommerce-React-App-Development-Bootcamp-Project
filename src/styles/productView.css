@@ -1,0 +1,58 @@
+#prodViewCont{
+    width: auto;
+    height: auto;
+}
+
+#prodViewCard{
+    height: 87vh;
+    width: 85vw;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+#prodViewCardBody{
+    background-color: rgb(157, 232, 245);
+}
+
+#prodViewContCarousel{
+    height: 85%;
+    padding: .5rem;
+}
+
+#prodViewCarousel{
+    height: 99%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prodViewCarouselItem{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  
+}
+
+.prodViewCarouoselImg{
+    margin: auto;
+    height: 100%;
+    width: 54%;
+    min-height: 200px;
+    min-width: 200px;
+}
+
+#cardTitle{
+    max-height: 50px;
+    overflow: scroll;
+}
+
+#cardSubTitle{
+    max-height: 50px;
+    overflow: scroll;
+}
+
+.addToCartBtn{
+    height: 40px;
+    min-width: 150px;
+}
